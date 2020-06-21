@@ -1,0 +1,68 @@
+{
+	"definitions": {
+		"Address": {
+			"type": [ "object", "null" ],
+			"properties": {
+				"buildingNo": { "type": [ "string", "null" ] },
+				"city": { "type": [ "string", "null" ] },
+				"municipalityCode": { "type": [ "string", "null" ] },
+				"municipalityName": { "type": [ "string", "null" ] },
+				"roadCode": { "type": [ "string", "null" ] },
+				"darAddress": { "type": [ "string", "null" ] },
+				"floor": { "type": [ "string", "null" ] },
+				"houseNo": { "type": [ "string", "null" ] },
+				"postDistrict": { "type": [ "string", "null" ] },
+				"postCode": { "type": [ "string", "null" ] },
+				"doorNo": { "type": [ "string", "null" ] },
+				"roadAddressingName": { "type": [ "string", "null" ] }
+			}
+		},
+		"Citizen": {
+			"type": [ "object", "null" ],
+			"properties": {
+				"id": { "type": "string" },
+				"firstName": { "type": [ "string", "null" ] },
+				"lastName": { "type": [ "string", "null" ] },
+				"cpr": { "type": [ "string", "null" ] },
+				"maritalStatus": { "type": [ "string", "null" ] },
+				"status": { "type": [ "string", "null" ] },
+				"parents": {
+					"type": [ "array", "null" ],
+					"items": { "$ref": "#/definitions/Parent" }
+				},
+				"legalGuardians": {
+					"type": [ "array", "null" ],
+					"items": { "$ref": "#/definitions/LegalGuardian" }
+				},
+				"nameAndAddressProtection": { "type": "boolean" },
+				"addresses": {
+					"type": [ "array", "null" ],
+					"items": { "$ref": "#/definitions/Address" }
+				},
+				"citizenships": {
+					"type": [ "array", "null" ],
+					"items": { "type": [ "string", "null" ] }
+				}
+			},
+			"required": [ "id", "nameAndAddressProtection" ]
+		},
+		"LegalGuardian": {
+			"type": [ "object", "null" ],
+			"properties": {
+				"id": { "type": [ "string", "null" ] },
+				"cpr": { "type": [ "string", "null" ] },
+				"relation": { "type": [ "string", "null" ] }
+			}
+		},
+		"Parent": {
+			"type": [ "object", "null" ],
+			"properties": {
+				"id": { "type": [ "string", "null" ] },
+				"cpr": { "type": [ "string", "null" ] },
+				"relation": { "type": [ "string", "null" ] }
+			}
+		}
+	},
+	"type": "array",
+	"items": { "$ref": "#/definitions/Citizen" }
+}

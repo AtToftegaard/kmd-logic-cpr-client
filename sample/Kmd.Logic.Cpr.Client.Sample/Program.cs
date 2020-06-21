@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Kmd.Logic.Cpr.Client.Models;
 using Kmd.Logic.Identity.Authorization;
@@ -60,6 +61,11 @@ namespace Kmd.Logic.Cpr.Client.Sample
             using (var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider))
             {
                 var cprClient = new CprClient(httpClient, tokenProviderFactory, configuration.Cpr);
+
+                var tokenProvider = tokenProviderFactory.GetProvider(httpClient);
+                CancellationTokenSource source = new CancellationTokenSource();
+                CancellationToken token = source.Token;
+                var accessToken = await tokenProvider.GetAuthenticationHeaderAsync(token).ConfigureAwait(true);
 
                 var configs = await cprClient.GetAllCprConfigurationsAsync().ConfigureAwait(false);
                 if (configs == null || configs.Count == 0)
